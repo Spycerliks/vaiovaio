@@ -2,12 +2,14 @@
 
 ## INSTRUCCIONES
 
-1.- Instalar script de base de datos `vaiovaio_db.sql`.
+1.- Instalar script de base de datos `vaiovaio_db.sql` en MySQL.
 
-2.- Abrir ventana de comandos en carpeta contenedora `vaiovaio-master`.
+2.- Modificar los parámetros de `server`, `username` y `password` en `src/dependencies.php` por los propios parámetros de su equipo.
 
-3.- Instalar las dependencias de composer con el comando:
+3.- Abrir ventana de comandos en carpeta contenedora `vaiovaio-master`.
+
+4.- Instalar las dependencias de composer con el comando:
 	`composer install`
 
-4.- Echar a correr la aplicación con el comando:
+5.- Echar a correr la aplicación con el comando:
 	`composer start`

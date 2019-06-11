@@ -10,9 +10,13 @@ class Database{
 		$this->database = $container->database;
 	}
 
-	// Select from database
-	public function noticias(){
-		$arr = $this->database->select('noticia', ['titulo','tipo','encabezamiento','cuerpo']);
+	public function getNoticias($estado){
+		$arr = $this->database->select('noticia', ['id', 'titular','estado'],["estado"=>$estado]);
 		return $arr;
 	}
+
+	public function getNoticia($idNoticia){
+		$arr = $this->database->get('noticia', ['id', 'titular','lead','cuerpo'],["id"=>$idNoticia]);
+		return $arr;
+	}	
 }

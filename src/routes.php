@@ -1,29 +1,28 @@
 <?php
 
 use Slim\App;
-use Slim\Http\Uri;
 use Slim\Http\Request;
 use Slim\Http\Response;
-use Slim\Views\Twig;
-use Slim\Http\Environment;
-use Slim\Views\TwigExtension;
-use Medoo\Medoo;
 
 return function (App $app) {
+	$container = $app->getContainer();
 
-	// Default route
-	$app->get('/', function ($request, $response) {
-		$db = new \Modelo\Database($this);
-		return $this->view->render($response, 'radiograma.phtml', [
-		  'noticias'=>$db->noticias()
-		]);
+	$app->get('/', function (Request $request, Response $response) use ($container) {
+		//$container->get('logger')->info("Slim-Skeleton '/' route");
+		return $container->get('renderer')->render($response, 'radiograma.phtml');
 	});
 
-	// Route /noticias
-	$app->get('/noticias', function ($request, $response) {
+	$app->get('/noticias/leidas', function (Request $request, Response $response) {
 		$db = new \Modelo\Database($this);
-		return $this->view->render($response, 'radiograma.phtml', [
-		  'noticias'=>$db->noticias()
-		]);
+		return $response->withJson($db->getNoticias(0));
+	});
+	$app->get('/noticias/porLeer', function (Request $request, Response $response) {
+		$db = new \Modelo\Database($this);
+		return $response->withJson($db->getNoticias(1));
+	});
+
+	$app->get('/noticia/{id}', function (Request $request, Response $response,$args) {
+		$db = new \Modelo\Database($this);
+		return $response->withJson($db->getNoticia($args["id"]));
 	});
 };
